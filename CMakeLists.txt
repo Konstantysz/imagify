@@ -7,33 +7,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set_property(DIRECTORY PROPERTY EP_BASE ${CMAKE_BINARY_DIR}/Subprojects)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMakePredefinedTargets")
+
+# Enable solution folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+# Disable ZERO_CHECK
+set(CMAKE_SUPPRESS_REGENERATION true)
 
 set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/Stage)
 
 add_subdirectory(ThirdParty)
 add_subdirectory(Source)
-
-# Not sure if needed
-# include(ExternalProject)
-# ExternalProject_Add(${PROJECT_NAME}Core
-#   DEPENDS
-#     wxWidgets_external
-#   SOURCE_DIR
-#     ${CMAKE_CURRENT_SOURCE_DIR}/Source
-#   CMAKE_ARGS
-#     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
-#     -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
-#     -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD}
-#     -DCMAKE_CXX_EXTENSIONS=${CMAKE_CXX_EXTENSIONS}
-#     -DCMAKE_CXX_STANDARD_REQUIRED=${CMAKE_CXX_STANDARD_REQUIRED}
-#     -DwxWidgets_ROOT_DIR=${wxWidgets_ROOT_DIR}
-#     -DENV_WX_CONFIG=${ENV_WX_CONFIG}
-#   CMAKE_CACHE_ARGS
-#     -DCMAKE_CXX_FLAGS:STRING=${CMAKE_CXX_FLAGS}
-#     -DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}
-#   BUILD_ALWAYS
-#     1
-#   INSTALL_COMMAND
-#     ""
-# )
