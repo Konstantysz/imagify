@@ -20,5 +20,5 @@ endif()
 target_link_libraries(ImagifyGUI PUBLIC ${wxWidgets_LIBRARIES})
 
 target_link_libraries(ImagifyGUI PUBLIC ImageProcessing)
-target_include_directories(ImagifyGUI SYSTEM PUBLIC "${PROJECT_SOURCE_DIR}/Source/Libraries/")
-target_include_directories(ImagifyGUI SYSTEM PUBLIC "${PROJECT_SOURCE_DIR}/Source/Libraries/ImageProcessing")
+target_include_directories(ImagifyGUI SYSTEM PUBLIC "${PROJECT_SOURCE_DIR}/source/Libraries/")
+target_include_directories(ImagifyGUI SYSTEM PUBLIC "${PROJECT_SOURCE_DIR}/source/Libraries/ImageProcessing")

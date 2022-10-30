@@ -10,5 +10,5 @@ include(GoogleTest)
 gtest_discover_tests(TestImageProcessing)
 
 target_link_libraries(TestImageProcessing PUBLIC ImageProcessing)
-target_include_directories(TestImageProcessing SYSTEM PUBLIC "${PROJECT_SOURCE_DIR}/Source/Libraries/")
-target_include_directories(TestImageProcessing SYSTEM PUBLIC "${PROJECT_SOURCE_DIR}/Source/Libraries/ImageProcessing")
+target_include_directories(TestImageProcessing SYSTEM PUBLIC "${PROJECT_SOURCE_DIR}/source/Libraries/")
+target_include_directories(TestImageProcessing SYSTEM PUBLIC "${PROJECT_SOURCE_DIR}/source/Libraries/ImageProcessing")
