@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.24 FATAL_ERROR)
 
-project(imagify LANGUAGES CXX)
+project(Imagify LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -16,5 +16,4 @@ set(CMAKE_SUPPRESS_REGENERATION true)
 
 set(STAGED_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/Stage)
 
-add_subdirectory(ThirdParty)
 add_subdirectory(Source)
