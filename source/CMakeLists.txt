@@ -4,9 +4,9 @@ add_subdirectory(Plugins)
 add_subdirectory(Tests)
 add_subdirectory(ThirdParty)
 
-set_target_properties(ImageProcessing PROPERTIES FOLDER Libraries)
+set_target_properties(Core PROPERTIES FOLDER Libraries)
 
-set_target_properties(TestImageProcessing PROPERTIES FOLDER Tests)
+set_target_properties(TestCore PROPERTIES FOLDER Tests)
 
 set_target_properties(gmock PROPERTIES FOLDER Thirdparty/googletest)
 set_target_properties(gmock_main PROPERTIES FOLDER Thirdparty/googletest)

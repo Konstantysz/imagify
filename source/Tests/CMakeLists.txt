@@ -1,1 +1,1 @@
-add_subdirectory(TestImageProcessing)
+add_subdirectory(TestCore)

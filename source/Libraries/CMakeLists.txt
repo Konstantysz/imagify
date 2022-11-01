@@ -1,1 +1,1 @@
-add_subdirectory(ImageProcessing)
+add_subdirectory(Core)
