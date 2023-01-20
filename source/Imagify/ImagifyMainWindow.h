@@ -1,6 +1,8 @@
 #pragma once
 #include <QLabel>
 #include <QMainWindow>
+#include <QLineEdit>
+#include <QPushButton>
 
 namespace Ui {
     class ImagifyMainWindow;
@@ -12,11 +14,15 @@ class ImagifyMainWindow : public QMainWindow
 
 public:
     explicit ImagifyMainWindow(QWidget* parent = 0);
+
     ~ImagifyMainWindow();
 
-// private slots:
+private slots:
+    void OnLoadButtonClicked();
 
 private:
     Ui::ImagifyMainWindow* ui;
     QLabel* status;
+    QLineEdit* file;
+    QPushButton* loadButton;
 };

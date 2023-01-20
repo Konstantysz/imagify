@@ -8,11 +8,21 @@ ImagifyMainWindow::ImagifyMainWindow(QWidget* parent) :
     ui(new Ui::ImagifyMainWindow)
 {
     ui->setupUi(this);
+
     status = new QLabel(status_waiting);
     ui->statusBar->addWidget(status);
+
+    connect(ui->loadPushButton, &QPushButton::released, this, &ImagifyMainWindow::OnLoadButtonClicked);
 }
 
 ImagifyMainWindow::~ImagifyMainWindow()
 {
     delete ui;
+}
+
+void ImagifyMainWindow::OnLoadButtonClicked()
+{
+    ui->statusBar->removeWidget(status);
+    status = new QLabel(ui->fileLineEdit->text());
+    ui->statusBar->addWidget(status);
 }
