@@ -21,6 +21,8 @@ private slots:
     void OnLoadButtonClicked();
 
 private:
+    void DisplayStatus(const QString& statusMessage);
+
     Ui::ImagifyMainWindow* ui;
     QLabel* status;
     QLineEdit* file;

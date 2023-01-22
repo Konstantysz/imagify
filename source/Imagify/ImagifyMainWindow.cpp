@@ -1,7 +1,7 @@
 #include "ImagifyMainWindow.h"
 #include "ui_ImagifyMainWindow.h"
 
-static const char* status_waiting = "Waiting for input...";
+#include <filesystem>
 
 ImagifyMainWindow::ImagifyMainWindow(QWidget* parent) :
     QMainWindow(parent),
@@ -9,6 +9,7 @@ ImagifyMainWindow::ImagifyMainWindow(QWidget* parent) :
 {
     ui->setupUi(this);
 
+    static const char* status_waiting = "Waiting for input...";
     status = new QLabel(status_waiting);
     ui->statusBar->addWidget(status);
 
@@ -22,7 +23,17 @@ ImagifyMainWindow::~ImagifyMainWindow()
 
 void ImagifyMainWindow::OnLoadButtonClicked()
 {
+    const auto fileLineEditText = ui->fileLineEdit->text();
+    if (!std::filesystem::is_regular_file(fileLineEditText.toStdString()))
+    {
+        DisplayStatus("File " + fileLineEditText + " does not exist.");
+        return;
+    }
+}
+
+void ImagifyMainWindow::DisplayStatus(const QString& statusMessage)
+{
     ui->statusBar->removeWidget(status);
-    status = new QLabel(ui->fileLineEdit->text());
+    status = new QLabel(statusMessage);
     ui->statusBar->addWidget(status);
 }
