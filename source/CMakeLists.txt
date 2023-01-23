@@ -14,7 +14,7 @@ set_target_properties(gtest PROPERTIES FOLDER Thirdparty/googletest)
 set_target_properties(gtest_main PROPERTIES FOLDER Thirdparty/googletest)
 
 # Add OpenCV
-# find_package(OpenCV REQUIRED)
+find_package(OpenCV REQUIRED)
 
 # Add subdirectories
 add_subdirectory(Imagify)
