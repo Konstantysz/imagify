@@ -1,1 +1,1 @@
-add_subdirectory(ExampleLib)
+add_subdirectory(Core)

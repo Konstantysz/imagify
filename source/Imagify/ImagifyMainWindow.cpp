@@ -1,7 +1,6 @@
 #include "ImagifyMainWindow.h"
 #include "ui_ImagifyMainWindow.h"
-
-#include <filesystem>
+#include "FileIO.h"
 
 ImagifyMainWindow::ImagifyMainWindow(QWidget* parent) :
     QMainWindow(parent),
@@ -19,14 +18,18 @@ ImagifyMainWindow::ImagifyMainWindow(QWidget* parent) :
 ImagifyMainWindow::~ImagifyMainWindow()
 {
     delete ui;
+    delete status;
 }
 
 void ImagifyMainWindow::OnLoadButtonClicked()
 {
-    const auto fileLineEditText = ui->fileLineEdit->text();
-    if (!std::filesystem::is_regular_file(fileLineEditText.toStdString()))
+    try
     {
-        DisplayStatus("File " + fileLineEditText + " does not exist.");
+        const auto image = Core::LoadImage(ui->fileLineEdit->text().toStdString());
+    }
+    catch (const std::invalid_argument& exception)
+    {
+        DisplayStatus(exception.what());
         return;
     }
 }

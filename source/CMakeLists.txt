@@ -14,7 +14,28 @@ set_target_properties(gtest PROPERTIES FOLDER Thirdparty/googletest)
 set_target_properties(gtest_main PROPERTIES FOLDER Thirdparty/googletest)
 
 # Add OpenCV
-find_package(OpenCV REQUIRED)
+# Look for OpenCV environmental variable
+if(DEFINED ENV{OpenCV_Dir})
+    set(OpenCVDIR $ENV{OpenCV_Dir})
+elseif(DEFINED ENV{OpenCV_DIR})
+    set(OpenCVDIR $ENV{OpenCV_DIR})
+elseif(DEFINED ENV{OpenCVDIR})
+    set(OpenCVDIR $ENV{OpenCVDIR})
+endif()
+
+# Find OpenCV packages
+if(DEFINED OpenCVDIR)
+    message("Using OpenCV env path: ${OpenCVDIR}.")
+    find_package(OpenCV
+        REQUIRED
+        CONFIG
+        PATHS
+        ${OpenCVDIR}
+        NO_DEFAULT_PATH)
+else()
+    message("Using OpenCV default path.")
+    find_package(OpenCV REQUIRED)
+endif()
 
 # Add subdirectories
 add_subdirectory(Imagify)

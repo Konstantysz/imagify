@@ -33,7 +33,7 @@ add_executable(Imagify ${ImagifySource})
 
 # Set Qt libraries variable
 set(QtLibraries Qt5::Core Qt5::Gui Qt5::Widgets Qt5::OpenGL)
-target_link_libraries(Imagify ${QtLibraries})
+target_link_libraries(Imagify PUBLIC ${QtLibraries})
 
 set_target_properties(Imagify PROPERTIES
     WIN32_EXECUTABLE ON
@@ -58,3 +58,8 @@ if(WIN32)
             "$<TARGET_FILE_DIR:Imagify>/${QtPlugin}")
     endforeach()
 endif()
+
+# Target libraries
+target_link_libraries(Imagify PUBLIC Core)
+target_include_directories(Imagify SYSTEM PUBLIC "${PROJECT_SOURCE_DIR}/source/Libraries/")
+target_include_directories(Imagify SYSTEM PUBLIC "${PROJECT_SOURCE_DIR}/source/Libraries/Core")
