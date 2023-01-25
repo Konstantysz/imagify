@@ -37,6 +37,8 @@ private slots:
     void OnBrowseButtonClicked();
 
 private:
+    void resizeEvent(QResizeEvent* resizeEvent);
+    
     /*! Method that displays status message in window.
         \param[in] statusMessage Message to be displayed.
     */
@@ -48,6 +50,8 @@ private:
     */
     QImage CvMatToQImage(const cv::Mat& cvMatImage);
 
-    Ui::ImagifyMainWindow* ui;  //!< Main window UI.
-    QLabel* status;             //!< Status of the program.
+    Ui::ImagifyMainWindow* ui;      //!< Main window UI.
+    QLabel* status;                 //!< Status of the program.
+    QPixmap inputImagePixelMap;     //!< Input image pixel map.
+    QPixmap outputImagePixelMap;    //!< Output image pixel map.
 };

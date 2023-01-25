@@ -6,11 +6,19 @@
 ImagifyMainWindow::ImagifyMainWindow(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::ImagifyMainWindow),
-    status(new QLabel("Waiting for input..."))
+    status(new QLabel("Waiting for input...")),
+    inputImagePixelMap(),
+    outputImagePixelMap()
 {
     ui->setupUi(this);
 
     ui->statusBar->addWidget(status);
+
+    ui->inputImage->setPixmap(inputImagePixelMap);
+    ui->inputImage->adjustSize();
+    
+    ui->outputImage->setPixmap(outputImagePixelMap);
+    ui->outputImage->adjustSize();
 
     connect(ui->loadPushButton, &QPushButton::released, this, &ImagifyMainWindow::OnLoadButtonClicked);
     connect(ui->browsePushButton, &QPushButton::released, this, &ImagifyMainWindow::OnBrowseButtonClicked);
@@ -27,13 +35,16 @@ void ImagifyMainWindow::OnLoadButtonClicked()
     try
     {
         const auto image = CvMatToQImage(Core::LoadImage(ui->fileLineEdit->text().toStdString()));
-        QPixmap imagePixelMap = QPixmap::fromImage(image);
+        inputImagePixelMap = QPixmap::fromImage(image);
+        outputImagePixelMap = QPixmap::fromImage(image);
+
         ui->inputImage->setPixmap(
-            imagePixelMap.scaled(ui->inputImage->width(), ui->inputImage->height(), Qt::KeepAspectRatio));
+            inputImagePixelMap.scaled(ui->inputImage->width(), ui->inputImage->height(), Qt::KeepAspectRatio));
         ui->inputImage->adjustSize();
-        ui->inputImage->setScaledContents(true);
-        ui->inputImage->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-        ui->inputImage->show();
+
+        ui->outputImage->setPixmap(
+            outputImagePixelMap.scaled(ui->outputImage->width(), ui->outputImage->height(), Qt::KeepAspectRatio));
+        ui->outputImage->adjustSize();
     }
     catch (const std::invalid_argument& exception)
     {
@@ -45,7 +56,24 @@ void ImagifyMainWindow::OnLoadButtonClicked()
 void ImagifyMainWindow::OnBrowseButtonClicked()
 {
     ui->fileLineEdit->setText(
-        QFileDialog::getOpenFileName(this, "Select file...", QDir::homePath(), "Images (*.jpg, *.png)"));
+        QFileDialog::getOpenFileName(
+            this, 
+            "Select file...", 
+            QDir::homePath(), 
+            tr("All files (*.*);;JPEG (*.jpg *.jpeg);;PNG (*.png)")));
+}
+
+void ImagifyMainWindow::resizeEvent(QResizeEvent* resizeEvent)
+{
+    QMainWindow::resizeEvent(resizeEvent);
+
+    ui->inputImage->setPixmap(
+        inputImagePixelMap.scaled(ui->inputImage->width(), ui->inputImage->height(), Qt::KeepAspectRatio));
+    ui->inputImage->adjustSize();
+
+    ui->outputImage->setPixmap(
+        outputImagePixelMap.scaled(ui->outputImage->width(), ui->outputImage->height(), Qt::KeepAspectRatio));
+    ui->outputImage->adjustSize();
 }
 
 void ImagifyMainWindow::DisplayStatus(const QString& statusMessage)
