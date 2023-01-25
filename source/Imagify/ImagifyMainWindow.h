@@ -33,6 +33,9 @@ private slots:
     //! Method that handles event when load button is clicked.
     void OnLoadButtonClicked();
 
+    //! Method that handles event when browse button is clicked.
+    void OnBrowseButtonClicked();
+
 private:
     /*! Method that displays status message in window.
         \param[in] statusMessage Message to be displayed.

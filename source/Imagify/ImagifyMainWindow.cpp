@@ -1,17 +1,19 @@
 #include "ImagifyMainWindow.h"
 #include "ui_ImagifyMainWindow.h"
 
+#include <QFIleDialog>
+
 ImagifyMainWindow::ImagifyMainWindow(QWidget* parent) :
     QMainWindow(parent),
-    ui(new Ui::ImagifyMainWindow)
+    ui(new Ui::ImagifyMainWindow),
+    status(new QLabel("Waiting for input..."))
 {
     ui->setupUi(this);
 
-    const auto status_waiting = "Waiting for input...";
-    status = new QLabel(status_waiting);
     ui->statusBar->addWidget(status);
 
     connect(ui->loadPushButton, &QPushButton::released, this, &ImagifyMainWindow::OnLoadButtonClicked);
+    connect(ui->browsePushButton, &QPushButton::released, this, &ImagifyMainWindow::OnBrowseButtonClicked);
 }
 
 ImagifyMainWindow::~ImagifyMainWindow()
@@ -38,6 +40,12 @@ void ImagifyMainWindow::OnLoadButtonClicked()
         DisplayStatus(exception.what());
         return;
     }
+}
+
+void ImagifyMainWindow::OnBrowseButtonClicked()
+{
+    ui->fileLineEdit->setText(
+        QFileDialog::getOpenFileName(this, "Select file...", QDir::homePath(), "Images (*.jpg, *.png)"));
 }
 
 void ImagifyMainWindow::DisplayStatus(const QString& statusMessage)
